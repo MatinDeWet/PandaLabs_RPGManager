@@ -1,11 +1,11 @@
 using API;
-using Application;
-using Microsoft.EntityFrameworkCore.Diagnostics;
-using Persistence.Data.Context;
-using Persistence;
-using EntitySecurity.Logic;
 using API.Middleware;
+using Application;
+using EntitySecurity.Logic;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
+using Persistence;
+using Persistence.Data.Context;
 using System.Reflection;
 
 public class Program

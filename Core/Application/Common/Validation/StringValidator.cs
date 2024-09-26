@@ -1,6 +1,4 @@
-﻿using FluentValidation;
-
-namespace Application.Common.Validation
+﻿namespace Application.Common.Validation
 {
     public class StringValidator : AbstractValidator<string?>
     {

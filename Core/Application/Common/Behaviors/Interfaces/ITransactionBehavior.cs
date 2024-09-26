@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-
-namespace Application.Common.Behaviors.Interfaces
+﻿namespace Application.Common.Behaviors.Interfaces
 {
     public interface ITransactionBehavior
     {

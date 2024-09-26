@@ -1,6 +1,4 @@
-﻿using MediatR;
-
-namespace Application.Common.CQRS
+﻿namespace Application.Common.CQRS
 {
     public interface ICommandHandler<in TCommand>
         : ICommandHandler<TCommand, Unit>

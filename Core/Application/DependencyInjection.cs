@@ -1,6 +1,5 @@
 ﻿using Application.Common.Behaviors;
 using Application.Common.Exceptions.Handler;
-using FluentValidation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
