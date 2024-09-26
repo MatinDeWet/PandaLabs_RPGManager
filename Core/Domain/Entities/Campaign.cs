@@ -11,5 +11,7 @@ namespace Domain.Entities
         public string Token { get; set; } = null!;
 
         public virtual ICollection<UserCampaign> Users { get; set; } = new List<UserCampaign>();
+
+        public virtual ICollection<Session> Sessions { get; set; } = new List<Session>();
     }
 }

@@ -1,6 +1,4 @@
-﻿using Domain.Enums;
-
-namespace Application.Features.CampaignFeatures.Queries.GetCampaignById
+﻿namespace Application.Features.CampaignFeatures.Queries.GetCampaignById
 {
     public class GetCampaignByIdHandler(ICampaignRepository repo, IIdentityInfo identityInfo)
         : IQueryHandler<GetCampaignByIdRequest, GetCampaignByIdResponse>

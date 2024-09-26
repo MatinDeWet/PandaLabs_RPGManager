@@ -1,6 +1,4 @@
-﻿using Domain.Enums;
-
-namespace Application.Features.CampaignFeatures.Commands.LeaveCampaign
+﻿namespace Application.Features.CampaignFeatures.Commands.LeaveCampaign
 {
     public class LeaveCampaignHandler(IUserCampaignRepository repo, IUnitOfWork unitOfWork, IIdentityInfo identityInfo)
         : ICommandHandler<LeaveCampaignRequest>

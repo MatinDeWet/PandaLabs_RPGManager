@@ -1,6 +1,4 @@
-﻿using Domain.Enums;
-
-namespace Application.Features.CampaignFeatures.Commands.JoinCampaignWithToken
+﻿namespace Application.Features.CampaignFeatures.Commands.JoinCampaignWithToken
 {
     public class JoinCampaignWithTokenHandler(ICampaignRepository campaignRepo, IUserCampaignRepository userRepo, IIdentityInfo identityInfo, IUnitOfWork unitOfWork)
         : ICommandHandler<JoinCampaignWithTokenRequest>

@@ -1,6 +1,4 @@
-﻿using Domain.Enums;
-
-namespace Application.Features.CampaignFeatures.Commands.RemoveUserFromCampaign
+﻿namespace Application.Features.CampaignFeatures.Commands.RemoveUserFromCampaign
 {
     public class RemoveUserFromCampaignHandler(ICampaignRepository repo, IUnitOfWork unitOfWork, IIdentityInfo identityInfo)
         : ICommandHandler<RemoveUserFromCampaignRequest>

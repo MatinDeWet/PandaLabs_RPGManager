@@ -1,5 +1,4 @@
 ﻿using Application.Common.Models;
-using Domain.Enums;
 using Pagination.Models;
 
 namespace Application.Features.CampaignFeatures.Queries.SearchCampaigns

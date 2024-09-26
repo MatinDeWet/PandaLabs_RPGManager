@@ -1,5 +1,4 @@
 ﻿using Application.Common.Tools;
-using Domain.Enums;
 
 namespace Application.Features.CampaignFeatures.Queries.SearchCampaigns
 {
