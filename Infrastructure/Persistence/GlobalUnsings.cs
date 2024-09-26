@@ -1,0 +1,10 @@
+﻿global using Application.Repositories;
+global using Domain.Entities;
+global using Domain.Enums;
+global using EntitySecurity.Contract.Security;
+global using EntitySecurity.Logic.Lock;
+global using EntitySecurity.Logic.Repository;
+global using EntitySecurity.Logic.Repository.Enums;
+global using Microsoft.EntityFrameworkCore;
+global using Microsoft.EntityFrameworkCore.Metadata.Builders;
+global using Persistence.Data.Context;

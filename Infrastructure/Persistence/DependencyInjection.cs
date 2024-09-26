@@ -1,10 +1,8 @@
 ﻿using Application.Common.Behaviors.Interfaces;
 using EntitySecurity.Contract.Repository;
-using EntitySecurity.Logic.Lock;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.DependencyInjection;
 using Persistence.Common.Interceptors;
-using Persistence.Data.Context;
 using Persistence.Data.Work;
 using System.Reflection;
 

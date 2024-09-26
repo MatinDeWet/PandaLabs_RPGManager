@@ -1,6 +1,4 @@
 ﻿using Domain.Common.Abstractions;
-using EntitySecurity.Contract.Security;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace Persistence.Common.Interceptors

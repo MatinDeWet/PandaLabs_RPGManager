@@ -1,7 +1,5 @@
 ﻿using Application.Common.Behaviors.Interfaces;
-using Domain.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
 
 namespace Persistence.Data.Context
 {
