@@ -14,5 +14,7 @@ namespace Domain.Entities
         public string? HouseKeeping { get; set; }
 
         public DateOnly? ScheduledDate { get; set; }
+
+        public virtual ICollection<SessionLocation> SessionLocations { get; set; } = new List<SessionLocation>();
     }
 }

@@ -3,11 +3,14 @@ using Application.Common.Tools;
 using Application.Features.LocationFeatures.Commands.ChangeLocationPrivacy;
 using Application.Features.LocationFeatures.Commands.CreateLocation;
 using Application.Features.LocationFeatures.Commands.DeleteLocation;
+using Application.Features.LocationFeatures.Commands.LinkLocationToHolder;
+using Application.Features.LocationFeatures.Commands.UnlinkLocationFromHolder;
 using Application.Features.LocationFeatures.Commands.UpdateLocation;
 using Application.Features.LocationFeatures.Commands.UpdateLocationParent;
 using Application.Features.LocationFeatures.Commands.UpdateLocationSubType;
 using Application.Features.LocationFeatures.Queries.GetLocationById;
 using Application.Features.LocationFeatures.Queries.GetLocationSubTypes;
+using Application.Features.LocationFeatures.Queries.SearchHolderLocations;
 using Application.Features.LocationFeatures.Queries.SearchLocations;
 using Domain.Enums;
 using Pagination.Models;
@@ -50,6 +53,24 @@ namespace API.Controllers
 
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
+        public async Task<IActionResult> LinkLocationToHolder([FromBody] LinkLocationToHolderRequest request)
+        {
+            await sender.Send(request);
+
+            return NoContent();
+        }
+
+        [HttpDelete]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        public async Task<IActionResult> UnlinkLocationFromHolder([FromBody] UnlinkLocationFromHolderRequest request)
+        {
+            await sender.Send(request);
+
+            return NoContent();
+        }
+
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<IActionResult> UpdateLocation([FromBody] UpdateLocationRequest request)
         {
             await sender.Send(request);
@@ -79,11 +100,20 @@ namespace API.Controllers
         #region Queries
         [HttpGet]
         [ProducesResponseType(typeof(List<BasicList>), StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetLocationSubTypes([FromQuery] GetLocationSubTypesRequest request)
+        public IActionResult GetLocationTypes()
         {
-            var response = await sender.Send(request);
+            var list = EnumTools.GetEnumList<LocationTypeEnum>();
 
-            return Ok(response);
+            return Ok(list);
+        }
+
+        [HttpGet]
+        [ProducesResponseType(typeof(List<BasicList>), StatusCodes.Status200OK)]
+        public IActionResult GetLocationHolders()
+        {
+            var list = EnumTools.GetEnumList<LocationHolderEnum>();
+
+            return Ok(list);
         }
 
         [HttpGet]
@@ -97,11 +127,20 @@ namespace API.Controllers
 
         [HttpGet]
         [ProducesResponseType(typeof(List<BasicList>), StatusCodes.Status200OK)]
-        public IActionResult GetLocationTypes()
+        public async Task<IActionResult> GetLocationSubTypes([FromQuery] GetLocationSubTypesRequest request)
         {
-            var list = EnumTools.GetEnumList<LocationTypeEnum>();
+            var response = await sender.Send(request);
 
-            return Ok(list);
+            return Ok(response);
+        }
+
+        [HttpPost]
+        [ProducesResponseType(typeof(PageableResponse<SearchHolderLocationsResponse>), StatusCodes.Status200OK)]
+        public async Task<IActionResult> SearchHolderLocations([FromBody] SearchHolderLocationsRequest request)
+        {
+            var response = await sender.Send(request);
+
+            return Ok(response);
         }
 
         [HttpPost]

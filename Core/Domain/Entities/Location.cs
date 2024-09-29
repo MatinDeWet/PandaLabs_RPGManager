@@ -21,5 +21,7 @@ namespace Domain.Entities
         public virtual LocationSubType? SubType { get; set; } = null!;
 
         public virtual ICollection<Location> Children { get; set; } = new List<Location>();
+
+        public virtual ICollection<SessionLocation> SessionLocations { get; set; } = new List<SessionLocation>();
     }
 }
