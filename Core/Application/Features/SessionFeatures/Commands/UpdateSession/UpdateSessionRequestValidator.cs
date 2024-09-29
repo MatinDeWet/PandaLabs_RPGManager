@@ -5,14 +5,14 @@
         public UpdateSessionRequestValidator()
         {
             RuleFor(x => x.Title)
-                .SetValidator(new StringValidator(64));
+                .SetValidator(new StringInputValidator(64));
 
             RuleFor(x => x.Summary)
-                .SetValidator(new StringValidator(16384, false))
+                .SetValidator(new StringInputValidator(16384, false))
                 .SetValidator(new HtmlInputValidator());
 
             RuleFor(x => x.HouseKeeping)
-                .SetValidator(new StringValidator(16384, false))
+                .SetValidator(new StringInputValidator(16384, false))
                 .SetValidator(new HtmlInputValidator());
         }
     }

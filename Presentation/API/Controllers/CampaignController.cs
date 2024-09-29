@@ -1,4 +1,6 @@
-﻿using Application.Features.CampaignFeatures.Commands.CreateCampaign;
+﻿using Application.Common.Models;
+using Application.Common.Tools;
+using Application.Features.CampaignFeatures.Commands.CreateCampaign;
 using Application.Features.CampaignFeatures.Commands.DeleteCampaign;
 using Application.Features.CampaignFeatures.Commands.JoinCampaignWithToken;
 using Application.Features.CampaignFeatures.Commands.LeaveCampaign;
@@ -8,6 +10,7 @@ using Application.Features.CampaignFeatures.Commands.UpdateCampaign;
 using Application.Features.CampaignFeatures.Queries.GetCampaignById;
 using Application.Features.CampaignFeatures.Queries.GetCampaignUsers;
 using Application.Features.CampaignFeatures.Queries.SearchCampaigns;
+using Domain.Enums;
 using Pagination.Models;
 
 namespace API.Controllers
@@ -86,6 +89,15 @@ namespace API.Controllers
         #endregion
 
         #region Queries
+        [HttpGet]
+        [ProducesResponseType(typeof(ICollection<BasicList>), StatusCodes.Status200OK)]
+        public IActionResult GetCampaignRoles()
+        {
+            var list = EnumTools.GetEnumList<CampaignRoleEnum>();
+
+            return Ok(list);
+        }
+
         [HttpGet]
         [ProducesResponseType(typeof(GetCampaignByIdResponse), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetCampaignById([FromQuery] GetCampaignByIdRequest request)

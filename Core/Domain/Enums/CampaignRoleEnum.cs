@@ -1,9 +1,13 @@
-﻿namespace Domain.Enums
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Domain.Enums
 {
     public enum CampaignRoleEnum
     {
-        None = 0,
+        [Display(Name = "Player")]
         Player = 1,
+
+        [Display(Name = "Game Master")]
         GameMaster = 2
     }
 }

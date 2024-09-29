@@ -1,8 +1,8 @@
-﻿namespace Application.Features.CampaignFeatures.Commands.UpdateCampaign
+﻿namespace Application.Features.LocationFeatures.Commands.UpdateLocation
 {
-    public class UpdateCampaignRequestValidator : AbstractValidator<UpdateCampaignRequest>
+    public class UpdateLocationRequestValidator : AbstractValidator<UpdateLocationRequest>
     {
-        public UpdateCampaignRequestValidator()
+        public UpdateLocationRequestValidator()
         {
             RuleFor(x => x.Title)
                 .SetValidator(new StringInputValidator(64));

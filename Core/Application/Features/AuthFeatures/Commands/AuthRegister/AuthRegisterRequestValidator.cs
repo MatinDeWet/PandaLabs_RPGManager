@@ -5,12 +5,12 @@
         public AuthRegisterRequestValidator()
         {
             RuleFor(x => x.Email)
-                .SetValidator(new StringValidator())
+                .SetValidator(new StringInputValidator())
                 .EmailAddress()
                 .WithMessage("{PropertyName} is not valid");
 
             RuleFor(x => x.Password)
-                .SetValidator(new StringValidator());
+                .SetValidator(new StringInputValidator());
 
             RuleFor(x => x.ConfirmPassword)
                 .Equal(x => x.Password)

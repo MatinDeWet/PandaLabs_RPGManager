@@ -1,8 +1,8 @@
 ﻿namespace Application.Common.Validation
 {
-    public class StringValidator : AbstractValidator<string?>
+    public class StringInputValidator : AbstractValidator<string?>
     {
-        public StringValidator(int maxLength, bool isRequired = true)
+        public StringInputValidator(int maxLength, bool isRequired = true)
         {
             if (isRequired)
             {
@@ -16,7 +16,7 @@
                 .WithMessage("{PropertyName} must not exceed {MaxLength} characters.");
         }
 
-        public StringValidator()
+        public StringInputValidator()
         {
             RuleFor(x => x)
                 .NotEmpty()

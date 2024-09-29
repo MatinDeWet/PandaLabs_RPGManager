@@ -13,5 +13,7 @@ namespace Domain.Entities
         public virtual ICollection<UserCampaign> Users { get; set; } = new List<UserCampaign>();
 
         public virtual ICollection<Session> Sessions { get; set; } = new List<Session>();
+
+        public virtual ICollection<Location> Locations { get; set; } = new List<Location>();
     }
 }

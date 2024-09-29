@@ -5,7 +5,7 @@
         public CreateSessionRequestValidator()
         {
             RuleFor(x => x.Title)
-                .SetValidator(new StringValidator(64));
+                .SetValidator(new StringInputValidator(64));
         }
     }
 }
