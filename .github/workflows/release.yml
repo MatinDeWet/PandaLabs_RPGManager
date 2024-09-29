@@ -1,6 +1,9 @@
 name: Release Build, Test, and Deploy
 
 on:
+  create:
+    branches:
+      - "release/**"
   push:
     branches:
       - "release/**"
