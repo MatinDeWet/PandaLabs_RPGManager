@@ -1,8 +1,9 @@
 ﻿using Domain.Common.Abstractions;
+using Domain.Common.Interfaces;
 
 namespace Domain.Entities
 {
-    public class Campaign : Entity<Guid>
+    public class Campaign : Entity<Guid>, INoteHolder
     {
         public string Title { get; set; } = null!;
 
@@ -15,5 +16,7 @@ namespace Domain.Entities
         public virtual ICollection<Session> Sessions { get; set; } = new List<Session>();
 
         public virtual ICollection<Location> Locations { get; set; } = new List<Location>();
+
+        public virtual ICollection<CampaignNote> Notes { get; set; } = new List<CampaignNote>();
     }
 }

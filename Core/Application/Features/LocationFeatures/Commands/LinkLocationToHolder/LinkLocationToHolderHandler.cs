@@ -7,7 +7,7 @@ namespace Application.Features.LocationFeatures.Commands.LinkLocationToHolder
     {
         public async Task<Unit> Handle(LinkLocationToHolderRequest request, CancellationToken cancellationToken)
         {
-            ILocationLinkEntity locationLink = request.LocationHolder switch
+            ILocationLink locationLink = request.LocationHolder switch
             {
                 LocationHolderEnum.Session => new SessionLocation(request.LocationHolderId, request.LocationId),
 

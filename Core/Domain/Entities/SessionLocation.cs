@@ -2,7 +2,7 @@
 
 namespace Domain.Entities
 {
-    public class SessionLocation : ILocationLinkEntity
+    public class SessionLocation : ILocationLink
     {
         public SessionLocation()
         {
