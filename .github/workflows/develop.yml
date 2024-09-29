@@ -1,4 +1,4 @@
-name: Delevopment Build, and Test
+name: Development Build, and Test
 
 on:
   push:

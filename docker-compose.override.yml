@@ -1,8 +1,36 @@
 services:
+  postgresdb:
+    container_name: postgresdb
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    restart: always
+    ports:
+      - "4001:5432"
+    volumes:
+      - postgres_storage:/var/lib/postgresql/data
+
+  seq:
+    container_name: seq
+    environment:
+      - ACCEPT_EULA=Y
+      - SEQ_LICENSE=trial
+    restart: always
+    ports:
+      - "4002:80"
+    volumes:
+      - seq_storage:/data
+
   api:
+    container_name: RpgApi
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTPS_PORTS=8081
+      - Serilog__WriteTo__0__Args__serverUrl=http://seq:80 
+      - ConnectionStrings__RpgConnection=Server=postgresdb;Port=5432;Database=RpgDb;User Id=postgres;Password=postgres;Include Error Detail=true
+    depends_on:
+      - seq
+      - postgresdb
     ports:
       - "5051:8081"
     volumes:

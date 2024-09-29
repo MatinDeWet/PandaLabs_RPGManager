@@ -1,6 +1,16 @@
 services:
+  postgresdb:
+    image: postgres
+
+  seq:
+    image: datalust/seq
+
   api:
     image: ${DOCKER_REGISTRY-}api
     build:
       context: .
       dockerfile: Presentation/API/Dockerfile
+
+volumes:
+  postgres_storage:
+  seq_storage:
