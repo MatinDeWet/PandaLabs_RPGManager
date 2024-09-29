@@ -1,7 +1,11 @@
 # PandaLabs RPGManager
----
+
 [![CodeFactor](https://www.codefactor.io/repository/github/matindewet/pandalabs_rpgmanager/badge)](https://www.codefactor.io/repository/github/matindewet/pandalabs_rpgmanager)
 [![Docker Pulls](https://img.shields.io/docker/pulls/matindewet/pandalabsrpgapi)](https://hub.docker.com/repository/docker/matindewet/pandalabsrpgapi)
+
+[![Development Build, and Test](https://github.com/MatinDeWet/PandaLabs_RPGManager/actions/workflows/develop.yml/badge.svg?branch=develop)](https://github.com/MatinDeWet/PandaLabs_RPGManager/actions/workflows/develop.yml)
+[![Master Build, and Test](https://github.com/MatinDeWet/PandaLabs_RPGManager/actions/workflows/master.yml/badge.svg?branch=master)](https://github.com/MatinDeWet/PandaLabs_RPGManager/actions/workflows/master.yml)
+[![Release Build, Test, and Deploy](https://github.com/MatinDeWet/PandaLabs_RPGManager/actions/workflows/release.yml/badge.svg)](https://github.com/MatinDeWet/PandaLabs_RPGManager/actions/workflows/release.yml)
 ---
 
 ## Description
