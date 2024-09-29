@@ -79,6 +79,6 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: .
-          file: Presentation/PandaLabsRPG.API/Dockerfile
+          file: Presentation/API/Dockerfile
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/pandalabsrpgapi:latest, ${{ secrets.DOCKERHUB_USERNAME }}/pandalabsrpgapi:${{ github.run_number }}
