@@ -14,8 +14,6 @@ namespace Application.Features.SessionFeatures.Queries.SearchSessions
                 .Select(x => new SearchSessionsResponse
                 {
                     Id = x.Id,
-                    CampaignId = x.CampaignId,
-                    CampaignTitle = x.Campaign.Title,
                     Title = x.Title,
                     IsPrivate = x.IsPrivate,
                     ScheduledDate = x.ScheduledDate,
