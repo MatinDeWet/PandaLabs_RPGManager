@@ -39,14 +39,8 @@
                        uc.UserId == identityId
                        && (
                            uc.Role == CampaignRoleEnum.GameMaster
-                           ||
-                           (
-                               !l.IsPrivate
-                               && (
-                                   !ln.Note.IsPrivate
-                                   || (ln.Note.IsPrivate && ln.Note.CreatedById == identityId)
-                               )
-                           )
+                           || !ln.Note.IsPrivate
+                           || (ln.Note.IsPrivate && ln.Note.CreatedById == identityId)
                        )
                    select ln;
         }
