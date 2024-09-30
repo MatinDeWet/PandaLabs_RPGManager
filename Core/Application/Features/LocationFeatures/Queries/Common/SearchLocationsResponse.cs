@@ -1,13 +1,10 @@
 ﻿using Application.Common.Tools;
 
-namespace Application.Features.LocationFeatures.Queries.SearchLocations
+namespace Application.Features.LocationFeatures.Queries.Common
 {
     public record SearchLocationsResponse
     {
         public Guid Id { get; set; }
-
-        public Guid CampaignId { get; set; }
-        public string CampaignName { get; set; } = null!;
 
         public Guid? ParentId { get; set; }
         public string? ParentName { get; set; } = null!;

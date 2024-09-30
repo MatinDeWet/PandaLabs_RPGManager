@@ -1,5 +1,4 @@
 ﻿using Domain.Common.Interfaces;
-using System.Linq.Expressions;
 
 namespace Application.Repositories
 {
@@ -7,10 +6,6 @@ namespace Application.Repositories
     {
         IQueryable<Location> Locations { get; }
 
-        IQueryable<T> QueryLocationLink<T>() where T : class, ILocationLink;
-
-        IQueryable<TLocationLink?> QueryLocationLink<TLocationLink>(
-            Expression<Func<TLocationLink, bool>> predicate)
-            where TLocationLink : class, ILocationLink;
+        IQueryable<ILocationLink> QueryLocationLink(LocationHolderEnum locationHolder, Guid? holderId = null);
     }
 }
