@@ -8,6 +8,7 @@ using Application.Features.LocationFeatures.Commands.UnlinkLocationFromHolder;
 using Application.Features.LocationFeatures.Commands.UpdateLocation;
 using Application.Features.LocationFeatures.Commands.UpdateLocationParent;
 using Application.Features.LocationFeatures.Commands.UpdateLocationSubType;
+using Application.Features.LocationFeatures.Queries.Common;
 using Application.Features.LocationFeatures.Queries.GetLocationById;
 using Application.Features.LocationFeatures.Queries.GetLocationSubTypes;
 using Application.Features.LocationFeatures.Queries.SearchHolderLocations;
@@ -135,7 +136,7 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        [ProducesResponseType(typeof(PageableResponse<SearchHolderLocationsResponse>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(PageableResponse<SearchLocationsResponse>), StatusCodes.Status200OK)]
         public async Task<IActionResult> SearchHolderLocations([FromBody] SearchHolderLocationsRequest request)
         {
             var response = await sender.Send(request);

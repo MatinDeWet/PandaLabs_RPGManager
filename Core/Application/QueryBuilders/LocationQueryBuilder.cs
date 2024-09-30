@@ -1,7 +1,11 @@
-﻿using Application.Features.LocationFeatures.Queries.SearchLocations;
+﻿using Application.Features.LocationFeatures.Queries.SearchHolderLocations;
+using Application.Features.LocationFeatures.Queries.SearchLocations;
+using Application.Features.NoteFeatures.Queries.SearchNotes;
+using Domain.Common.Interfaces;
 using LinqKit;
 using Pagination;
 using Pagination.Enums;
+using System.Linq;
 using System.Linq.Expressions;
 
 namespace Application.QueryBuilders

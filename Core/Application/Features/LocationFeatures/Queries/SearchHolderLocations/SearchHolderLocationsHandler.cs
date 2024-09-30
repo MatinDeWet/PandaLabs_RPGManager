@@ -1,71 +1,32 @@
-﻿using Domain.Common.Interfaces;
-using LinqKit;
+﻿using Application.Features.LocationFeatures.Queries.Common;
+using Application.QueryBuilders;
 using Pagination;
 using Pagination.Models;
-using System.Linq.Expressions;
 
 namespace Application.Features.LocationFeatures.Queries.SearchHolderLocations
 {
     public class SearchHolderLocationsHandler(ILocationRepository repo)
-            : IQueryHandler<SearchHolderLocationsRequest, PageableResponse<SearchHolderLocationsResponse>>
+            : IQueryHandler<SearchHolderLocationsRequest, PageableResponse<SearchLocationsResponse>>
     {
-        public Task<PageableResponse<SearchHolderLocationsResponse>> Handle(SearchHolderLocationsRequest request, CancellationToken cancellationToken)
+        public async Task<PageableResponse<SearchLocationsResponse>> Handle(SearchHolderLocationsRequest request, CancellationToken cancellationToken)
         {
-            IQueryable<SearchHolderLocationsResponse> query = request.LocationHolder switch
-            {
-                LocationHolderEnum.Session => BuildSearchLocationQuery<SessionLocation>(
-                    x => x.SessionId,
-                    x => x.Session.Title,
-                    request
-                ),
+            var locations = await repo.QueryLocationLink(request.LocationHolder, request.LocationHolderId)
+                .ApplyFilters(request)
+                .Select(x => new SearchLocationsResponse
+                {
+                    Id = x.Location.Id,
+                    ParentId = x.Location.ParentId,
+                    ParentName = x.Location.Parent!.Title ?? null!,
+                    Title = x.Location.Title,
+                    Type = x.Location.Type,
+                    SubTypeId = x.Location.SubTypeId,
+                    SubTypeName = x.Location.SubType!.Name ?? null!,
+                    IsPrivate = x.Location.IsPrivate,
+                    DateTimeCreated = x.Location.DateTimeCreated
+                })
+                .ToPageableListAsync(request, cancellationToken);
 
-                _ => throw new ArgumentOutOfRangeException(nameof(request.LocationHolder), request.LocationHolder, "Unsupported LocationHolder type.")
-            };
-
-            return query.ToPageableListAsync(request, cancellationToken);
-        }
-
-        private IQueryable<SearchHolderLocationsResponse> BuildSearchLocationQuery<TLocationLink>(
-            Expression<Func<TLocationLink, Guid>> locationHolderIdSelector,
-            Expression<Func<TLocationLink, string>> locationHolderNameSelector,
-            SearchHolderLocationsRequest request)
-            where TLocationLink : class, ILocationLink
-        {
-            var query = repo.QueryLocationLink<TLocationLink>();
-
-            if (request.LocationHolderId.HasValue)
-            {
-                var predicate = GetHolderPredicate(locationHolderIdSelector, request.LocationHolderId.Value);
-                query = query.Where(predicate);
-            }
-
-            return query.Select(locationLink => new SearchHolderLocationsResponse
-            {
-                Id = locationLink.Location.Id,
-                CampaignId = locationLink.Location.CampaignId,
-                CampaignName = locationLink.Location.Campaign.Title,
-                ParentId = locationLink.Location.ParentId,
-                ParentName = locationLink.Location.Parent!.Title ?? null!,
-                Title = locationLink.Location.Title,
-                Type = locationLink.Location.Type,
-                SubTypeId = locationLink.Location.SubTypeId,
-                SubTypeName = locationLink.Location.SubType!.Name ?? null!,
-                IsPrivate = locationLink.Location.IsPrivate,
-                DateTimeCreated = locationLink.Location.DateTimeCreated,
-                LocaitonHolder = request.LocationHolder,
-                NoteHolderId = locationHolderIdSelector.Invoke(locationLink),
-                NoteHolderName = locationHolderNameSelector.Invoke(locationLink)
-            });
-        }
-
-        private Expression<Func<TLocationLink, bool>> GetHolderPredicate<TLocationLink>(
-            Expression<Func<TLocationLink, Guid>> locationHolderIdSelector,
-            Guid LocationHolderId)
-            where TLocationLink : class, ILocationLink
-        {
-            var parameter = locationHolderIdSelector.Parameters[0];
-            var body = Expression.Equal(locationHolderIdSelector.Body, Expression.Constant(LocationHolderId));
-            return Expression.Lambda<Func<TLocationLink, bool>>(body, parameter);
+            return locations;
         }
     }
 }

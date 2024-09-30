@@ -1,5 +1,6 @@
-﻿using Domain.Common.Interfaces;
-using LinqKit;
+﻿using Application.Common.Exceptions;
+using Domain.Common.Interfaces;
+using Persistence.Common;
 using System.Linq.Expressions;
 
 namespace Persistence.Repositories
@@ -14,18 +15,24 @@ namespace Persistence.Repositories
             from l in Secure<Location>()
             select l;
 
-        public IQueryable<T> QueryLocationLink<T>() where T : class, ILocationLink
+        public IQueryable<ILocationLink> QueryLocationLink(LocationHolderEnum locationHolder, Guid? holderId = null)
         {
-            return Secure<T>().AsExpandable();
+            return locationHolder switch
+            {
+                LocationHolderEnum.Session => BuildQuery<SessionLocation>(holderId, x => x.SessionId),
+                _ => throw new LocationHolderOutOfRangeException(nameof(locationHolder), locationHolder)
+            };
         }
 
-        public IQueryable<TLocationLink?> QueryLocationLink<TLocationLink>(
-            Expression<Func<TLocationLink, bool>> predicate)
+        private IQueryable<ILocationLink> BuildQuery<TLocationLink>(Guid? holderId, Expression<Func<TLocationLink, Guid>> holderIdSelector)
             where TLocationLink : class, ILocationLink
         {
-            return QueryLocationLink<TLocationLink>()
-                .Include(nl => nl.Location)
-                .Where(predicate);
+            var query = Secure<TLocationLink>();
+
+            if (holderId.HasValue)
+                query = query.Where(holderIdSelector.Compose(id => id == holderId.Value));
+
+            return query;
         }
     }
 }
