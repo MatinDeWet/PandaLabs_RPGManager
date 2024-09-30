@@ -1,6 +1,7 @@
-﻿
-using Application.Common.Exceptions;
+﻿using Application.Common.Exceptions;
 using Domain.Common.Interfaces;
+using Persistence.Common;
+using System.Linq.Expressions;
 
 namespace Persistence.Repositories
 {
@@ -10,22 +11,15 @@ namespace Persistence.Repositories
         {
         }
 
-        public IQueryable<TNoteLink> QueryNoteLink<TNoteLink>() where TNoteLink : class, INoteLink
+        public IQueryable<INoteLink> QueryNoteLink(NoteHolderEnum noteHolder, Guid? holderId = null)
         {
-            return Secure<TNoteLink>();
-        }
-
-        public IQueryable<INoteLink> QueryNoteLink(NoteHolderEnum noteHolder)
-        {
-            IQueryable<INoteLink> query = noteHolder switch
+            return noteHolder switch
             {
-                NoteHolderEnum.Campaign => QueryNoteLink<CampaignNote>(),
-                NoteHolderEnum.Session => QueryNoteLink<SessionNote>(),
-                NoteHolderEnum.Location => QueryNoteLink<LocationNote>(),
+                NoteHolderEnum.Campaign => BuildQuery<CampaignNote>(holderId, x => x.CampaignId),
+                NoteHolderEnum.Session => BuildQuery<SessionNote>(holderId, x => x.SessionId),
+                NoteHolderEnum.Location => BuildQuery<LocationNote>(holderId, x => x.LocationId),
                 _ => throw new NoteHolderOutOfRangeException(nameof(noteHolder), noteHolder)
             };
-
-            return query;
         }
 
         public async Task<INoteLink?> GetNoteByLink(Guid Id, NoteHolderEnum noteHolder, CancellationToken cancellationToken)
@@ -34,6 +28,17 @@ namespace Persistence.Repositories
                 .Include(nl => nl.Note)
                 .Where(nl => nl.NoteId == Id)
                 .FirstOrDefaultAsync(cancellationToken);
+        }
+
+        private IQueryable<INoteLink> BuildQuery<TNoteLink>(Guid? holderId, Expression<Func<TNoteLink, Guid>> holderIdSelector)
+            where TNoteLink : class, INoteLink
+        {
+            var query = Secure<TNoteLink>();
+
+            if (holderId.HasValue)
+                query = query.Where(holderIdSelector.Compose(id => id == holderId.Value));
+
+            return query;
         }
     }
 }

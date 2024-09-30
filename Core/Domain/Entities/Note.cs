@@ -6,7 +6,7 @@ namespace Domain.Entities
     {
         public string Title { get; set; } = null!;
 
-        public string? Content { get; set; } = null!;
+        public string Content { get; set; } = null!;
 
         public virtual ICollection<CampaignNote> Campaigns { get; set; } = new List<CampaignNote>();
 

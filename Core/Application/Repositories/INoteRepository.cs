@@ -4,9 +4,7 @@ namespace Application.Repositories
 {
     public interface INoteRepository : IRepository
     {
-        IQueryable<TNoteLink> QueryNoteLink<TNoteLink>() where TNoteLink : class, INoteLink;
-
-        IQueryable<INoteLink> QueryNoteLink(NoteHolderEnum noteHolder);
+        IQueryable<INoteLink> QueryNoteLink(NoteHolderEnum noteHolder, Guid? holderId = null);
 
         Task<INoteLink?> GetNoteByLink(Guid Id, NoteHolderEnum noteHolder, CancellationToken cancellationToken);
     }
