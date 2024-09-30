@@ -1,4 +1,5 @@
-﻿using Pagination.Models;
+﻿using Application.Features.LocationFeatures.Queries.Common;
+using Pagination.Models;
 
 namespace Application.Features.LocationFeatures.Queries.SearchLocations
 {

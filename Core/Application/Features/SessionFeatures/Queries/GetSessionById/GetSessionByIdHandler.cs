@@ -10,8 +10,6 @@
                 .Select(x => new GetSessionByIdResponse
                 {
                     Id = x.Id,
-                    CampaignId = x.CampaignId,
-                    CampaignTitle = x.Campaign.Title,
                     Title = x.Title,
                     Summary = x.Summary,
                     HouseKeeping = x.Campaign.Users.Where(y => y.UserId == identityInfo.GetIdentityId() && y.Role == CampaignRoleEnum.GameMaster).Any() ? x.HouseKeeping : null,

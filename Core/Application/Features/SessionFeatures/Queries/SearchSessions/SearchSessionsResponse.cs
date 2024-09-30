@@ -4,10 +4,6 @@
     {
         public Guid Id { get; set; }
 
-        public Guid CampaignId { get; set; }
-
-        public string CampaignTitle { get; set; } = null!;
-
         public string Title { get; set; } = null!;
 
         public bool IsPrivate { get; set; }
