@@ -14,14 +14,14 @@ namespace Persistence.Repositories
             from l in Secure<Location>()
             select l;
 
-        public IQueryable<T> QueryLocationLink<T>() where T : class, ILocationLinkEntity
+        public IQueryable<T> QueryLocationLink<T>() where T : class, ILocationLink
         {
             return Secure<T>().AsExpandable();
         }
 
         public IQueryable<TLocationLink?> QueryLocationLink<TLocationLink>(
             Expression<Func<TLocationLink, bool>> predicate)
-            where TLocationLink : class, ILocationLinkEntity
+            where TLocationLink : class, ILocationLink
         {
             return QueryLocationLink<TLocationLink>()
                 .Include(nl => nl.Location)

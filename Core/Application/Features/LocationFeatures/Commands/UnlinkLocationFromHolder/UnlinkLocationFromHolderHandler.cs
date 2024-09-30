@@ -7,7 +7,7 @@ namespace Application.Features.LocationFeatures.Commands.UnlinkLocationFromHolde
     {
         public async Task<Unit> Handle(UnlinkLocationFromHolderRequest request, CancellationToken cancellationToken)
         {
-            IQueryable<ILocationLinkEntity?> query = request.LocationHolder switch
+            IQueryable<ILocationLink?> query = request.LocationHolder switch
             {
                 LocationHolderEnum.Session => repo.QueryLocationLink<SessionLocation>(
                     sl => sl.SessionId == request.LocationHolderId && sl.LocationId == request.LocationId),

@@ -29,7 +29,7 @@ namespace Application.Features.LocationFeatures.Queries.SearchHolderLocations
             Expression<Func<TLocationLink, Guid>> locationHolderIdSelector,
             Expression<Func<TLocationLink, string>> locationHolderNameSelector,
             SearchHolderLocationsRequest request)
-            where TLocationLink : class, ILocationLinkEntity
+            where TLocationLink : class, ILocationLink
         {
             var query = repo.QueryLocationLink<TLocationLink>();
 
@@ -61,7 +61,7 @@ namespace Application.Features.LocationFeatures.Queries.SearchHolderLocations
         private Expression<Func<TLocationLink, bool>> GetHolderPredicate<TLocationLink>(
             Expression<Func<TLocationLink, Guid>> locationHolderIdSelector,
             Guid LocationHolderId)
-            where TLocationLink : class, ILocationLinkEntity
+            where TLocationLink : class, ILocationLink
         {
             var parameter = locationHolderIdSelector.Parameters[0];
             var body = Expression.Equal(locationHolderIdSelector.Body, Expression.Constant(LocationHolderId));
