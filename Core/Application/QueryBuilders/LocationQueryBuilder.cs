@@ -1,4 +1,5 @@
-﻿using Application.Features.LocationFeatures.Queries.SearchLocations;
+﻿using Application.Common.Tools;
+using Application.Features.LocationFeatures.Queries.SearchLocations;
 using LinqKit;
 using Pagination;
 using Pagination.Enums;
@@ -63,18 +64,17 @@ namespace Application.QueryBuilders
         }
 
         private static Expression<Func<T, bool>> BuildLocationPropertyEquals<T, TProperty>(
-        Expression<Func<T, Location>> locationSelector,
-        Expression<Func<Location, TProperty>> propertySelector,
-        TProperty value)
+            Expression<Func<T, Location>> locationSelector,
+            Expression<Func<Location, TProperty>> propertySelector,
+            TProperty value)
         {
             var parameter = locationSelector.Parameters[0];
 
-            var locationAccess = Expression.Invoke(locationSelector, parameter);
-            var propertyAccess = Expression.Invoke(propertySelector, locationAccess);
+            // Replace the parameter in propertySelector with locationSelector.Body
+            var propertyBody = new ParameterReplacer(propertySelector.Parameters[0], locationSelector.Body)
+                .Visit(propertySelector.Body);
 
-            var valueExpression = Expression.Constant(value, typeof(TProperty));
-
-            var equalsExpression = Expression.Equal(propertyAccess, valueExpression);
+            var equalsExpression = Expression.Equal(propertyBody, Expression.Constant(value, typeof(TProperty)));
 
             return Expression.Lambda<Func<T, bool>>(equalsExpression, parameter);
         }
@@ -86,9 +86,9 @@ namespace Application.QueryBuilders
         {
             var parameter = locationSelector.Parameters[0];
 
-            var locationAccess = Expression.Invoke(locationSelector, parameter);
-
-            var propertyAccess = Expression.Invoke(propertySelector, locationAccess);
+            // Replace the parameter in propertySelector with locationSelector.Body
+            var propertyBody = new ParameterReplacer(propertySelector.Parameters[0], locationSelector.Body)
+                .Visit(propertySelector.Body);
 
             var patternExpression = Expression.Constant(pattern);
 
@@ -104,7 +104,7 @@ namespace Application.QueryBuilders
             var ilikeCall = Expression.Call(
                 ilikeMethod,
                 efFunctions,
-                propertyAccess,
+                propertyBody,
                 patternExpression);
 
             return Expression.Lambda<Func<T, bool>>(ilikeCall, parameter);
