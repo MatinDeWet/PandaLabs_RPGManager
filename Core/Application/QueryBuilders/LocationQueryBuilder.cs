@@ -70,7 +70,6 @@ namespace Application.QueryBuilders
         {
             var parameter = locationSelector.Parameters[0];
 
-            // Replace the parameter in propertySelector with locationSelector.Body
             var propertyBody = new ParameterReplacer(propertySelector.Parameters[0], locationSelector.Body)
                 .Visit(propertySelector.Body);
 
@@ -86,7 +85,6 @@ namespace Application.QueryBuilders
         {
             var parameter = locationSelector.Parameters[0];
 
-            // Replace the parameter in propertySelector with locationSelector.Body
             var propertyBody = new ParameterReplacer(propertySelector.Parameters[0], locationSelector.Body)
                 .Visit(propertySelector.Body);
 
