@@ -11,7 +11,7 @@ namespace Application.Features.LocationFeatures.Queries.SearchLocations
         public async Task<PageableResponse<SearchLocationsResponse>> Handle(SearchLocationsRequest request, CancellationToken cancellationToken)
         {
             var locations = await repo.Locations
-                .ApplyFilters(request)
+                .ApplyFilters(request, x => x)
                 .Select(x => new SearchLocationsResponse
                 {
                     Id = x.Id,
