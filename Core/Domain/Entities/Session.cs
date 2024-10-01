@@ -19,5 +19,7 @@ namespace Domain.Entities
         public virtual ICollection<SessionLocation> SessionLocations { get; set; } = new List<SessionLocation>();
 
         public virtual ICollection<SessionNote> Notes { get; set; } = new List<SessionNote>();
+
+        public virtual ICollection<Quest> Quests { get; set; } = new List<Quest>();
     }
 }
