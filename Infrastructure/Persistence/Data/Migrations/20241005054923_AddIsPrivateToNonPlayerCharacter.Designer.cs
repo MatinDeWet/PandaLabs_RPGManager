@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Persistence.Data.Context;
@@ -11,9 +12,11 @@ using Persistence.Data.Context;
 namespace Persistence.Data.Migrations
 {
     [DbContext(typeof(ManagerContext))]
-    partial class ManagerContextModelSnapshot : ModelSnapshot
+    [Migration("20241005054923_AddIsPrivateToNonPlayerCharacter")]
+    partial class AddIsPrivateToNonPlayerCharacter
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -4052,10 +4055,6 @@ namespace Persistence.Data.Migrations
                     b.Property<int>("ChallengeRating")
                         .HasColumnType("integer");
 
-                    b.Property<bool?>("IsPrivate")
-                        .HasColumnType("boolean")
-                        .HasColumnName("Monster_IsPrivate");
-
                     b.Property<int>("MonsterType")
                         .HasColumnType("integer");
 
@@ -4076,8 +4075,7 @@ namespace Persistence.Data.Migrations
                         .HasColumnName("NonPlayerCharacter_CampaignId");
 
                     b.Property<bool>("IsPrivate")
-                        .HasColumnType("boolean")
-                        .HasColumnName("NonPlayerCharacter_IsPrivate");
+                        .HasColumnType("boolean");
 
                     b.HasIndex("CampaignId");
 

@@ -7,6 +7,9 @@
             entity.Property(e => e.CampaignId)
                 .HasColumnName("Monster_CampaignId");
 
+            entity.Property(e => e.IsPrivate)
+                .HasColumnName("Monster_IsPrivate");
+
             entity.HasOne(d => d.Campaign)
                 .WithMany(p => p!.Monsters)
                 .HasForeignKey(d => d.CampaignId)

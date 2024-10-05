@@ -4,5 +4,7 @@
     {
         public Guid CampaignId { get; set; }
         public virtual Campaign Campaign { get; set; } = null!;
+
+        public bool IsPrivate { get; set; } = true;
     }
 }

@@ -10,5 +10,7 @@
 
         public Guid? CampaignId { get; set; }
         public virtual Campaign? Campaign { get; set; }
+
+        public bool? IsPrivate { get; set; }
     }
 }
