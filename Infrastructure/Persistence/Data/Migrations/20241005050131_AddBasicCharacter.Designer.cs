@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Persistence.Data.Context;
@@ -11,9 +12,11 @@ using Persistence.Data.Context;
 namespace Persistence.Data.Migrations
 {
     [DbContext(typeof(ManagerContext))]
-    partial class ManagerContextModelSnapshot : ModelSnapshot
+    [Migration("20241005050131_AddBasicCharacter")]
+    partial class AddBasicCharacter
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -171,9 +174,6 @@ namespace Persistence.Data.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
-
-                    b.Property<int>("Alignment")
-                        .HasColumnType("integer");
 
                     b.Property<int>("ArmorClass")
                         .HasColumnType("integer");
@@ -4045,25 +4045,6 @@ namespace Persistence.Data.Migrations
                 {
                     b.HasBaseType("Domain.Entities.Character");
 
-                    b.Property<Guid?>("CampaignId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("Monster_CampaignId");
-
-                    b.Property<int>("ChallengeRating")
-                        .HasColumnType("integer");
-
-                    b.Property<bool?>("IsPrivate")
-                        .HasColumnType("boolean")
-                        .HasColumnName("Monster_IsPrivate");
-
-                    b.Property<int>("MonsterType")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("Size")
-                        .HasColumnType("integer");
-
-                    b.HasIndex("CampaignId");
-
                     b.HasDiscriminator().HasValue(3);
                 });
 
@@ -4071,28 +4052,12 @@ namespace Persistence.Data.Migrations
                 {
                     b.HasBaseType("Domain.Entities.Character");
 
-                    b.Property<Guid>("CampaignId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("NonPlayerCharacter_CampaignId");
-
-                    b.Property<bool>("IsPrivate")
-                        .HasColumnType("boolean")
-                        .HasColumnName("NonPlayerCharacter_IsPrivate");
-
-                    b.HasIndex("CampaignId");
-
                     b.HasDiscriminator().HasValue(2);
                 });
 
             modelBuilder.Entity("Domain.Entities.PlayerCharacter", b =>
                 {
                     b.HasBaseType("Domain.Entities.Character");
-
-                    b.Property<Guid?>("CampaignId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("PlayerCharacter_CampaignId");
-
-                    b.HasIndex("CampaignId");
 
                     b.HasDiscriminator().HasValue(1);
                 });
@@ -4328,48 +4293,11 @@ namespace Persistence.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Domain.Entities.Monster", b =>
-                {
-                    b.HasOne("Domain.Entities.Campaign", "Campaign")
-                        .WithMany("Monsters")
-                        .HasForeignKey("CampaignId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.Navigation("Campaign");
-                });
-
-            modelBuilder.Entity("Domain.Entities.NonPlayerCharacter", b =>
-                {
-                    b.HasOne("Domain.Entities.Campaign", "Campaign")
-                        .WithMany("NonPlayersCharacters")
-                        .HasForeignKey("CampaignId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Campaign");
-                });
-
-            modelBuilder.Entity("Domain.Entities.PlayerCharacter", b =>
-                {
-                    b.HasOne("Domain.Entities.Campaign", "Campaign")
-                        .WithMany("PlayerCharacters")
-                        .HasForeignKey("CampaignId")
-                        .OnDelete(DeleteBehavior.SetNull);
-
-                    b.Navigation("Campaign");
-                });
-
             modelBuilder.Entity("Domain.Entities.Campaign", b =>
                 {
                     b.Navigation("Locations");
 
-                    b.Navigation("Monsters");
-
-                    b.Navigation("NonPlayersCharacters");
-
                     b.Navigation("Notes");
-
-                    b.Navigation("PlayerCharacters");
 
                     b.Navigation("Sessions");
 

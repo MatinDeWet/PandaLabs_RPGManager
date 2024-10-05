@@ -1,0 +1,40 @@
+﻿namespace Domain.Enums
+{
+    public enum ChallengeRatingEnum
+    {
+        None = 0,
+        OneEighth = 1,
+        OneQuarter = 2,
+        OneHalf = 3,
+        One = 4,
+        Two = 5,
+        Three = 6,
+        Four = 7,
+        Five = 8,
+        Six = 9,
+        Seven = 10,
+        Eight = 11,
+        Nine = 12,
+        Ten = 13,
+        Eleven = 14,
+        Twelve = 15,
+        Thirteen = 16,
+        Fourteen = 17,
+        Fifteen = 18,
+        Sixteen = 19,
+        Seventeen = 20,
+        Eighteen = 21,
+        Nineteen = 22,
+        Twenty = 23,
+        TwentyOne = 24,
+        TwentyTwo = 25,
+        TwentyThree = 26,
+        TwentyFour = 27,
+        TwentyFive = 28,
+        TwentySix = 29,
+        TwentySeven = 30,
+        TwentyEight = 31,
+        TwentyNine = 32,
+        Thirty = 33
+    }
+}

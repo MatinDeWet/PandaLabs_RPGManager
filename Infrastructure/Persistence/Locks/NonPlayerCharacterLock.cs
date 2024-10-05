@@ -1,8 +1,9 @@
-﻿namespace Persistence.Locks
+﻿
+namespace Persistence.Locks
 {
-    public class SessionLock(ManagerContext context) : Lock<Session>
+    public class NonPlayerCharacterLock(ManagerContext context) : Lock<NonPlayerCharacter>
     {
-        public override async Task<bool> HasAccess(Session obj, RepositoryOperationEnum operation, int identityId, CancellationToken cancellationToken)
+        public override async Task<bool> HasAccess(NonPlayerCharacter obj, RepositoryOperationEnum operation, int identityId, CancellationToken cancellationToken)
         {
             if (operation == RepositoryOperationEnum.Insert)
             {
@@ -16,29 +17,29 @@
                 return await insertQuery.AnyAsync(cancellationToken);
             }
 
-            var query = from s in context.Set<Session>()
-                        join uc in context.Set<UserCampaign>() on s.CampaignId equals uc.CampaignId
+            var query = from npc in context.Set<NonPlayerCharacter>()
+                        join uc in context.Set<UserCampaign>() on npc.CampaignId equals uc.CampaignId
                         where
-                            s.Id == obj.Id
+                            npc.Id == obj.Id
                             && uc.UserId == identityId
                             && uc.CampaignId == obj.CampaignId
                             && uc.Role == CampaignRoleEnum.GameMaster
-                        select s;
+                        select npc;
 
             return await query.AnyAsync(cancellationToken);
         }
 
-        public override IQueryable<Session> Secured(int identityId)
+        public override IQueryable<NonPlayerCharacter> Secured(int identityId)
         {
-            return from s in context.Set<Session>()
-                   join uc in context.Set<UserCampaign>() on s.CampaignId equals uc.CampaignId
+            return from npc in context.Set<NonPlayerCharacter>()
+                   join uc in context.Set<UserCampaign>() on npc.CampaignId equals uc.CampaignId
                    where
                    uc.UserId == identityId
                    && (
                            uc.Role == CampaignRoleEnum.GameMaster
-                           || !s.IsPrivate
+                           || !npc.IsPrivate
                        )
-                   select s;
+                   select npc;
         }
     }
 }

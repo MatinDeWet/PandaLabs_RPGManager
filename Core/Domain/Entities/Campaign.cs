@@ -1,5 +1,4 @@
-﻿using Domain.Common.Abstractions;
-using Domain.Common.Interfaces;
+﻿using Domain.Common.Interfaces;
 
 namespace Domain.Entities
 {
@@ -18,5 +17,11 @@ namespace Domain.Entities
         public virtual ICollection<Location> Locations { get; set; } = new List<Location>();
 
         public virtual ICollection<CampaignNote> Notes { get; set; } = new List<CampaignNote>();
+
+        public virtual ICollection<Monster> Monsters { get; set; } = new List<Monster>();
+
+        public virtual ICollection<PlayerCharacter> PlayerCharacters { get; set; } = new List<PlayerCharacter>();
+
+        public virtual ICollection<NonPlayerCharacter> NonPlayersCharacters { get; set; } = new List<NonPlayerCharacter>();
     }
 }
