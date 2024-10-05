@@ -1,6 +1,4 @@
-﻿using Domain.Common.Abstractions;
-
-namespace Domain.Common.BaseEntities
+﻿namespace Domain.Common.BaseEntities
 {
     public abstract class PrivatibleEntity<TKey> : Entity<TKey>
     {

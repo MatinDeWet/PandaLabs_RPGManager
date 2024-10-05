@@ -1,6 +1,5 @@
 ﻿using Domain.Common.BaseEntities;
 using Domain.Common.Interfaces;
-using Domain.Enums;
 
 namespace Domain.Entities
 {
