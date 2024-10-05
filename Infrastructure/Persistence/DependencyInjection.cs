@@ -12,6 +12,7 @@ namespace Persistence
     {
         public static IServiceCollection AddInterceptors(this IServiceCollection services)
         {
+            services.AddScoped<ISaveChangesInterceptor, EventInterceptor>();
             services.AddScoped<ISaveChangesInterceptor, AuditableEntityInterceptor>();
 
             return services;

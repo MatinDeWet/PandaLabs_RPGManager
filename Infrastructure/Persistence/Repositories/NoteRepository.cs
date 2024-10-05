@@ -7,8 +7,27 @@ namespace Persistence.Repositories
 {
     public class NoteRepository : JudgedRepository<ManagerContext>, INoteRepository
     {
+        private bool IsSecured = true;
+
         public NoteRepository(ManagerContext context, IIdentityInfo info, IEnumerable<IProtected> protection) : base(context, info, protection)
         {
+        }
+
+        private static readonly Dictionary<Type, NoteHolderEnum> NoteHolderTypeMap = new()
+        {
+            { typeof(Campaign), NoteHolderEnum.Campaign },
+            { typeof(Session), NoteHolderEnum.Session },
+            { typeof(Location), NoteHolderEnum.Location }
+        };
+
+        public IQueryable<INoteLink> QueryNoteLink(Type noteHolder, Guid? holderId = null)
+        {
+            IsSecured = false;
+
+            if (NoteHolderTypeMap.TryGetValue(noteHolder, out var holderEnum))
+                return QueryNoteLink(holderEnum, holderId);
+
+            throw new NoteHolderOutOfRangeException(nameof(noteHolder), noteHolder);
         }
 
         public IQueryable<INoteLink> QueryNoteLink(NoteHolderEnum noteHolder, Guid? holderId = null)
@@ -33,7 +52,7 @@ namespace Persistence.Repositories
         private IQueryable<INoteLink> BuildQuery<TNoteLink>(Guid? holderId, Expression<Func<TNoteLink, Guid>> holderIdSelector)
             where TNoteLink : class, INoteLink
         {
-            var query = Secure<TNoteLink>();
+            var query = IsSecured ? Secure<TNoteLink>() : _context.Set<TNoteLink>();
 
             if (holderId.HasValue)
                 query = query.Where(holderIdSelector.Compose(id => id == holderId.Value));
