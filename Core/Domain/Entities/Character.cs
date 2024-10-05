@@ -11,5 +11,7 @@
         public int HitPoints { get; set; }
 
         public int ArmorClass { get; set; }
+
+        public AlignmentEnum Alignment { get; set; }
     }
 }

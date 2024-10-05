@@ -4,6 +4,14 @@
     {
         public void Configure(EntityTypeBuilder<PlayerCharacter> entity)
         {
+            entity.Property(e => e.CampaignId)
+                .HasColumnName("PlayerCharacter_CampaignId");
+
+            entity.HasOne(d => d.Campaign)
+                .WithMany(p => p!.PlayerCharacters)
+                .HasForeignKey(d => d.CampaignId)
+                .OnDelete(DeleteBehavior.SetNull);
+
             OnConfigurePartial(entity);
         }
 
