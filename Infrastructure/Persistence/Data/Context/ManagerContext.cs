@@ -5,6 +5,10 @@ namespace Persistence.Data.Context
 {
     public class ManagerContext : IdentityDbContext<ApplicationUser, ApplicationRole, int>, ITransactionBehavior
     {
+        public ManagerContext()
+        {
+        }
+
         public ManagerContext(DbContextOptions<ManagerContext> options) : base(options)
         {
         }
